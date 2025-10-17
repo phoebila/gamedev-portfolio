@@ -33,12 +33,13 @@ body {
 }
 
 .container {
-  width: 90vw;
-  height: 90vh;
-  position: relative;
+  width: 100vw;
+  height: 100vh;
+  position: center;
   margin: 0 auto;
-  padding: 5vh 5vw;
+  padding: 1vh 1vw;
   box-sizing: border-box;
+  overflow: hidden;          /* disables scrolling */
 }
 
 /* Corner borders */
@@ -1299,3 +1300,113 @@ body {
   }
 }
 
+/* Arcade Display Styles */
+.arcade-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at center, #050505, #000);
+  overflow: hidden;
+}
+
+.arcade-frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;   /* ensures full coverage */
+  bottom: 0;  /* ensures full coverage */
+  background: linear-gradient(180deg, #111 0%, #0a0a0a 100%);
+  box-shadow:
+    inset 0 10px 40px rgba(129, 255, 192, 0.822),
+    inset 0 -10px 60px rgba(0, 0, 0, 0.8),
+    0 0 80px rgba(0, 255, 128, 0.1);
+  border-radius: 20px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.arcade-frame::before {
+  content: "";
+  position: absolute;
+  inset: 5%;
+  border-radius: 30px;
+  border: 6px solid rgba(0, 255, 128, 0.2);
+  box-shadow:
+    0 0 40px rgba(0, 255, 128, 0.15),
+    inset 0 0 60px rgba(0, 255, 128, 0.05);
+  pointer-events: none;
+}
+
+/* CRT Screen area */
+.crt-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1700px;
+  height: 800px;
+  transform: translate(-50%, -50%) perspective(1000px) rotateX(2deg);
+  border-radius: 10px;
+  color: #00ff80; /* Classic green text inside CRT */
+  /* overflow-y: auto; Allows scrolling content if needed */
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  box-shadow:
+    inset 0 0 40px rgba(0, 255, 128, 0.15),
+    0 0 30px rgba(0, 255, 128, 0.25);
+  filter: contrast(1.2) saturate(1.15);
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+/* Hover tilt for interactivity */
+.arcade-wrapper:hover .crt-overlay {
+  transform: translate(-50%, -50%) perspective(1000px) rotateX(0deg);
+}
+
+.crt-content::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+
+/* Scanlines overlay */
+.crt-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 255, 0, 0.05) 0,
+    rgba(0, 255, 0, 0.05) 1px,
+    transparent 2px,
+    transparent 4px
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.6;
+}
+/* Flicker animation */
+.crt-overlay {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.97; }
+}
+
+/* Reflection / curved highlight */
+.crt-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 15%,
+    rgba(255, 255, 255, 0.07) 0%,
+    transparent 70%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 5;
+}
