@@ -21,14 +21,12 @@ const About = () => {
 
         <div className="about-content">
           <p>
-            I'm a developer and designer blending technology with creative problem-solving. My journey began with a fascination for interactive systems and games, which led me to the University of California, Santa Cruz, where I pursued a B.S. in Computer Science: Game Design. There, I combined hardware, software, and creative coding to develop projects ranging from real-time OpenGL graphics to full-stack applications like my SpaceX Flight Tracker.
-            </p>
+            I’m a UC Santa Cruz Computer Science graduate specializing in Game Design. During my undergraduate studies, I worked on a variety of game projects, gaining hands-on experience with game mechanics, level design, UI/UX, and engines including Unity, Unreal, and Godot. These projects allowed me to apply skills in C/C++, C#, Python, and JavaScript, while exploring graphics programming, shaders, and interactive gameplay systems. </p>
 
           <p>
-            Along the way, I’ve gained hands-on experience managing AWS S3 servers, building responsive React frontends, and developing Node.js backends, while also mentoring students in Python programming through the Academic Excellence Program. </p>
-
-          <p>
-            I’m passionate about creating intuitive, engaging experiences at the intersection of design and technology and am seeking opportunities in Frontend, Full Stack, or Software Engineering roles.
+            Through my time at the COSMOS program, I mentored high school students in small teams to design and develop games, focusing on mechanics, collaborative design, and experimenting across different engines. This experience strengthened my ability to guide iterative design processes, foster creativity in a team, and translate ideas into engaging, playable experiences.</p>
+            <p>
+            I’m eager to bring creativity, collaboration, and technical expertise to teams crafting immersive games.
           </p>
         </div>
       </div>
