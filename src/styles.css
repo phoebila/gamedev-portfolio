@@ -14,7 +14,8 @@
 body {
   background-color: #000;
   color: #fff;
-  font-family: "Kumbh Sans", serif;
+  text-shadow:#00ff80 0px 0px 8px;
+  font-family: "VT323", monospace;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -85,6 +86,7 @@ body {
   width: 24px;
   height: 24px;
   fill: #00ff80;
+  filter: drop-shadow(0 0 8px #00ff80);
 }
 
 .icons svg:hover{
@@ -286,6 +288,7 @@ body {
   height: 32px;
   border: 1px solid #ffffff;
   color: white;
+  filter: drop-shadow(0 0 8px #00ff80);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -833,6 +836,7 @@ body {
 /* Home content styles */
 .home-content {
   color: #fff;
+  
   font-size: 1.2rem;
   line-height: 1.6;
   text-align: left;
