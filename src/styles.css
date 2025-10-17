@@ -46,7 +46,7 @@ body {
 /* Header styles */
 .header {
   position: absolute;
-  top: 80px;
+  top: 50px;
   left: 20px;
 }
 
@@ -506,14 +506,15 @@ body {
 /* About styles */
 .about-heading {
   font-size: 1.5rem;
-  text-indent: -.5rem ;
+  text-indent: 2rem;
+  margin-bottom: .5rem;
 }
 
 .about-container {
   display: flex;
   color: #fff;
   font-size: 1.2rem;
-  line-height: 2.1rem;
+  line-height: 1.5rem;
   flex-direction: row;
   max-height: 80vh; /* Adjust based on preference */
   max-width: 90vw;
@@ -1173,15 +1174,7 @@ body {
   .horizontal-line{
     display: none;
   }
-
-  .about-heading {  
-    transform: translateY(1.5rem);
-  }
-
-  .about-heading h1 {
-    font-size: 2.5rem;
-    margin-left: 1rem;
-  }
+  
   .about-content {
     padding: 0;
     overflow-y: visible;
