@@ -53,8 +53,8 @@ const Home = () => (
 
       <div className="info-section animate delay-3">
         <div className="info-label">SEEKING</div>
-        <div className="info-value">Frontend, Full Stack</div>
-        <div className="info-detail">Software Engineering roles</div>
+        <div className="info-value">Gameplay Programmer/Developer, Designer, 3D Artist </div>
+        <div className="info-detail">Game Developer/Programmer roles</div>
       </div>
 
       <div className="cta-buttons animate delay-4">

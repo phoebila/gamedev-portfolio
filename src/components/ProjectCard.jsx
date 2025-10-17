@@ -7,7 +7,8 @@ const ProjectCard = ({
   skills = [], 
   imageUrl,
   projectUrl,
-  githubUrl 
+  githubUrl,
+  itchoUrl
 }) => {
   return (
     <div className="project-card">
@@ -52,6 +53,16 @@ const ProjectCard = ({
               className="project-link"
             >
               GitHub
+            </a>
+          )}
+          {itchoUrl && (
+            <a 
+              href={itchoUrl}
+              target="_blank"
+              rel="noopener noreferrer" 
+              className="project-link"
+            >
+              Itch.io
             </a>
           )}
         </div>
