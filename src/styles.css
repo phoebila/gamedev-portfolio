@@ -514,7 +514,7 @@ body {
   display: flex;
   color: #fff;
   font-size: 1.2rem;
-  line-height: 1.5rem;
+  line-height: 1.1rem;
   flex-direction: row;
   max-height: 80vh; /* Adjust based on preference */
   max-width: 90vw;
@@ -1312,16 +1312,17 @@ body {
 }
 
 /* CRT Screen area */
+/* CRT Screen area */
 .crt-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1700px;
-  height: 800px;
+  width: 90%;          /* was 1700px */
+  max-width: 1600px;   /* prevents it from getting too big */
+  aspect-ratio: 17 / 8; /* replaces fixed height */
   transform: translate(-50%, -50%) perspective(1000px) rotateX(2deg);
   border-radius: 10px;
-  color: #00ff80; /* Classic green text inside CRT */
-  /* overflow-y: auto; Allows scrolling content if needed */
+  color: #00ff80;
   background: radial-gradient(circle at center, #111 0%, #000 100%);
   box-shadow:
     inset 0 0 40px rgba(142, 238, 190, 0.15),
@@ -1329,7 +1330,25 @@ body {
   filter: contrast(1.2) saturate(1.15);
   z-index: 0;
   transition: transform 0.3s ease;
+  animation: flicker 0.05s infinite;
+  overflow: hidden; /* keeps everything tidy */
 }
+
+/* Optional fine-tuning for small screens */
+@media (max-width: 768px) {
+  .crt-overlay {
+    width: 95%;
+    aspect-ratio: 4 / 3; /* closer to classic CRT shape */
+  }
+}
+
+@media (max-width: 480px) {
+  .crt-overlay {
+    width: 100%;
+    aspect-ratio: 1.2 / 1; /* fills vertically better on mobile */
+  }
+}
+
 
 /* Hover tilt for interactivity */
 .arcade-wrapper:hover .crt-overlay {
