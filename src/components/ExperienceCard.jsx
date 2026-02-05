@@ -1,43 +1,50 @@
 import React from 'react';
 
-const ExperienceCard = ({ 
-  title, 
-  company, 
-  description, 
-  skills = [], 
+const ExperienceCard = ({
+  title,
+  company,
+  description,
+  skills = [],
   achievements = [],
   location,
-  date
+  date,
+  onBack,
 }) => {
   return (
-    <div className="experience-card">
-      <div className="experience-content">
-        <h3 className="experience-title">{title}</h3>
-        <div className="experience-company-location">{company} • {location}</div>
-        <div className=".experience-date">{date}</div>
-        
-        <p className="experience-description"> {description}</p>
-        
-        {achievements && achievements.length > 0 && (
-          <div className="mt-4">
-            <h4 className="text-lg mb-2">Key Achievements</h4>
-            <ul className="experience-list">
-              {achievements.map((achievement, index) => (
-                <li key={index} className="experience-list-item text-gray-300 mb-2">
-                  {achievement}
-                </li>
+    <div className="sw-detail-wrapper">
+      {onBack && (
+        <button className="sw-back-btn" onClick={onBack}>
+          ← BACK TO EXPERIENCE
+        </button>
+      )}
+
+      <div className="sw-detail-scroll">
+        <div className="sw-detail-card">
+          <div className="sw-detail-content">
+            <h3 className="sw-detail-title">{title}</h3>
+            <div className="sw-exp-company">{company} &bull; {location}</div>
+            <div className="sw-exp-date">{date}</div>
+
+            <p className="sw-detail-desc">{description}</p>
+
+            {achievements && achievements.length > 0 && (
+              <div className="sw-exp-achievements">
+                <h4 className="sw-exp-achievements-heading">Key Achievements</h4>
+                <ul className="sw-exp-achievements-list">
+                  {achievements.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="sw-detail-skills">
+              {skills.map((skill, index) => (
+                <span key={index} className="sw-skill-pill">
+                  {skill}
+                </span>
               ))}
-            </ul>
-          </div>
-        )}
-        
-        <div className="skills-container">
-          <div className="skills-grid">
-            {skills.map((skill, index) => (
-              <span key={index} className="skill-tag">
-                {skill}
-              </span>
-            ))}
+            </div>
           </div>
         </div>
       </div>

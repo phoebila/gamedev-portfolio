@@ -1,70 +1,74 @@
 import React from 'react';
-import { projectDetails } from './ProjectsData';
 
-const ProjectCard = ({ 
-  title, 
-  description, 
-  skills = [], 
+const ProjectCard = ({
+  title,
+  description,
+  skills = [],
   imageUrl,
   projectUrl,
   githubUrl,
-  itchoUrl
+  itchoUrl,
+  onBack,
 }) => {
   return (
-    <div className="project-card">
-      {imageUrl && (
-        <img 
-          src={imageUrl} 
-          alt={title} 
-          className="project-image"
-        />
+    <div className="sw-detail-wrapper">
+      {onBack && (
+        <button className="sw-back-btn" onClick={onBack}>
+          ← BACK TO PROJECTS
+        </button>
       )}
-      
-      <div className="project-content">
-        <h3 className="project-title">{title}</h3>
-        <p className="project-description">{description}</p>
-        
-        <div className="skills-container">
-          <div className="skills-grid">
-            {skills.map((skill, index) => (
-              <span key={index} className="skill-tag">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
 
-        <div className="project-links">
-          {projectUrl && (
-            <a 
-              href={projectUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-link"
-            >
-              View Project
-            </a>
+      <div className="sw-detail-scroll">
+        <div className="sw-detail-card">
+          {imageUrl && (
+            <img src={imageUrl} alt={title} className="sw-detail-image" />
           )}
-          {githubUrl && (
-            <a 
-              href={githubUrl}
-              target="_blank"
-              rel="noopener noreferrer" 
-              className="project-link"
-            >
-              GitHub
-            </a>
-          )}
-          {itchoUrl && (
-            <a 
-              href={itchoUrl}
-              target="_blank"
-              rel="noopener noreferrer" 
-              className="project-link"
-            >
-              Itch.io
-            </a>
-          )}
+
+          <div className="sw-detail-content">
+            <h3 className="sw-detail-title">{title}</h3>
+            <p className="sw-detail-desc">{description}</p>
+
+            <div className="sw-detail-skills">
+              {skills.map((skill, index) => (
+                <span key={index} className="sw-skill-pill">
+                  {skill}
+                </span>
+              ))}
+            </div>
+
+            <div className="sw-detail-links">
+              {projectUrl && (
+                <a
+                  href={projectUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sw-detail-link"
+                >
+                  VIEW PROJECT
+                </a>
+              )}
+              {githubUrl && (
+                <a
+                  href={githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sw-detail-link"
+                >
+                  GITHUB
+                </a>
+              )}
+              {itchoUrl && (
+                <a
+                  href={itchoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="sw-detail-link"
+                >
+                  ITCH.IO
+                </a>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>

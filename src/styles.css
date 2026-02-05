@@ -33,14 +33,29 @@ body {
   }
 }
 
-.container {
-  width: 100vw;
+#root {
+  width: 100%;
   height: 100vh;
-  position: center;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
   margin: 0 auto;
-  padding: 1vh 1vw;
+  padding: 0;
   box-sizing: border-box;
-  overflow: hidden;          /* disables scrolling */
+  overflow: hidden;
+}
+
+/* The fixed-size canvas inside the CRT - always 1700x800, scaled uniformly */
+.crt-canvas {
+  width: 1700px;
+  height: 800px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
 }
 
 /* Header styles */
@@ -97,16 +112,18 @@ body {
 
 }
 
-/* Content Container for Animations */
+/* Content Container for Animations - positioned within the 1700x800 canvas */
 .content-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80%;
-  max-width: 50vw;
+  top: 40px;
+  left: 180px; /* After the dock */
+  right: 40px;
+  bottom: 40px;
   opacity: 1;
-  transition: opacity 0.1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
 .fade-out {
@@ -221,55 +238,118 @@ body {
   height: calc(100vh - 3rem);
 }
 
-/* Center Content */
-.center-content {
-  display: flex;
-  flex: 1;
+/* ========================================
+   HOME PAGE - Fixed pixel layout for 1700x800 canvas
+   Everything here uses px so it scales uniformly
+   ======================================== */
+.home-page {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Main Content */
-.main-content {
+.home-hero {
   display: flex;
-  flex: 1;
-  padding: 0rem 0;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
-.profile-image {
-  width: 20vw;
-  height: 20vw;
+.home-profile-image {
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  border: 4px solid #00ff80;
+  border: 3px solid #00ff80;
   overflow: hidden;
-  margin-bottom: 2.5rem;
-  position: relative;
+  box-shadow: 0 0 20px rgba(0, 255, 128, 0.3);
 }
 
-.profile-image img {
+.home-profile-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.bio {
-  text-align: center;
-  justify-content: center;
-  max-width: 400px;
-}
-
-.name {
-  font-size: 3rem;
+.home-name {
+  font-size: 52px;
   font-weight: 700;
-  margin-bottom: 0.5rem;
+  margin: 8px 0 0 0;
+  letter-spacing: 2px;
 }
 
-.title {
-  font-size: 1.25rem;
+.home-title {
+  font-size: 24px;
   color: #aaaaaa;
-  margin-bottom: 1.5rem;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.home-socials {
+  margin-top: 16px;
+  width: 300px;
+  overflow: hidden;
+}
+
+/* Info row: cards in a horizontal line */
+.home-info-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 60px;
+}
+
+.home-info-card {
+  text-align: center;
+  min-width: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-info-label {
+  color: #666666;
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.home-info-value {
+  font-size: 22px;
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.home-info-detail {
+  color: #aaaaaa;
+  font-size: 17px;
+}
+
+.home-resume-btn {
+  display: inline-block;
+  padding: 12px 40px;
+  border: 2px solid #ffffff;
+  border-radius: 24px;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 20px;
+  font-family: "VT323", monospace;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.home-resume-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
 }
 
 .social-links {
@@ -301,50 +381,46 @@ body {
   color: #0a0a0a;
 }
 
-/* Right Panel Content */
-.right-panel {
-  width: 300px;
-  margin-top: 4rem;
-}
-
-.info-section {
-  margin-bottom: 2.5rem;
-}
-
-.info-label {
-  color: #888888;
+/* Back Button Styles */
+.back-button {
+  color: #00ff80;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
-  letter-spacing: 1px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  font-family: "VT323", monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background-color: rgba(0, 255, 128, 0.05);
+  border: 1px solid rgba(0, 255, 128, 0.3);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
 }
 
-.info-value {
-  font-size: 1.5rem;
-  margin-bottom: 0.25rem;
+.back-button:hover {
+  background-color: rgba(0, 255, 128, 0.15);
+  border-color: rgba(0, 255, 128, 0.6);
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
 }
 
-.info-detail {
-  color: #aaaaaa;
-  font-size: 1rem;
-}
-
-/* CTA Buttons */
+/* CTA Buttons (used by other pages) */
 .cta-buttons {
   display: flex;
-  gap: 1.25rem;
-  margin-top: 3rem;
+  gap: 12px;
+  margin: 0;
 }
 
 .btn {
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 18px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.3s ease;
   display: inline-block;
   text-align: center;
-  min-width: 150px;
 }
 
 .btn-outline {
@@ -503,36 +579,92 @@ body {
   color: #fff;
 }
 
-/* About styles */
+/* ========================================
+   ABOUT PAGE - Fixed pixel layout for 1700x800 canvas
+   ======================================== */
+.about-section {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding: 20px 40px;
+  box-sizing: border-box;
+}
+
 .about-heading {
-  font-size: 1.5rem;
-  text-indent: 2rem;
-  margin-bottom: .5rem;
+  font-size: 36px;
+  margin-bottom: 16px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.about-heading h1 {
+  margin: 0;
+  letter-spacing: 2px;
 }
 
 .about-container {
   display: flex;
-  color: #fff;
-  font-size: 1.2rem;
-  line-height: 1.1rem;
   flex-direction: row;
-  max-height: 80vh; /* Adjust based on preference */
-  max-width: 90vw;
+  gap: 40px;
+  flex: 1;
+  min-height: 0; /* Allow flex child to shrink for scrolling */
+  max-width: 1200px;
+  width: 100%;
   overflow: hidden;
-  overflow-y: auto;
-  padding-right: 1.8rem;
 }
 
-.about-content img {
-  width: 100%;
-  height: auto; /* Maintains aspect ratio */
-  object-fit: contain; /* Ensures full image is visible */
+.about-image-container {
+  flex: 0 0 280px;
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+}
+
+.about-image-container img {
+  width: 280px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 255, 128, 0.3);
+}
+
+.about-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 16px;
+  min-height: 0;
+}
+
+/* CRT-themed scrollbar for the about content */
+.about-content::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+
+.about-content::-webkit-scrollbar-track {
+  background: rgba(0, 255, 128, 0.05);
+  border-radius: 4px;
+}
+
+.about-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 128, 0.3);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 128, 0.15);
+}
+
+.about-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 128, 0.5);
 }
 
 .about-content p {
-  margin-bottom: 1rem;
-  margin-left: 2rem;
-  font-size: 1.3rem;
+  font-size: 22px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  margin-left: 0;
+  color: #ddd;
 }
 
 .about-content p:last-child {
@@ -540,288 +672,281 @@ body {
 }
 
 
-.projects-menu {
-  position: absolute;
-  top: 50%;
-  right: -38%;
-  transform: translateY(-50%);
-  text-align: right;
-  background-color: transparent;
-  width: 40%; 
-  max-width: 25rem; /* Prevent excessive width on large screens */
-}
-  
-.projects-menu :hover{
-  color: #888;
-  font-size: 2.2rem;
-  transition-timing-function: ease-in;
-  transition: 0.3s;
-  }
-  
-  .projects-menu h2 {
-  font-size: 2rem;
-  font-weight: normal;
-  margin-top: .5rem;
-  transition: opacity 0.3s ease;
-}
-  
-.projects-menu .group {
-  margin-bottom: 2rem;
-}
-  
-.projects-menu .group:hover h2 {
-  opacity: 0.7;
-}
-  
-.projects-menu .group:active h2 {
-  font-size: 3rem;
-  color: #fff;
-  transition: font-size 0.3s;
-}
-  
-.projects-menu .text-sm {
-  font-size: 0.875rem;
-  color: #bbb;
-}
-  
-.projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
-  gap: 2rem;
+/* ========================================
+   PROJECTS PAGE - Software-portfolio style cards
+   Fixed pixel layout for 1700x800 canvas
+   ======================================== */
+
+/* --- LIST VIEW --- */
+.sw-projects-list {
   width: 100%;
-  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 10px 40px 20px;
+  box-sizing: border-box;
 }
-  
-  /* Project Card */
-.project-card {
-  background-color: #000;
-  border: 1px solid rgba(255, 255, 255, 0.1 );
+
+.sw-projects-heading {
+  font-size: 36px;
+  letter-spacing: 2px;
+  margin: 0 0 16px 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.sw-projects-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-right: 12px;
+}
+
+/* CRT scrollbar for project list */
+.sw-projects-scroll::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+.sw-projects-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 255, 128, 0.05);
+  border-radius: 4px;
+}
+.sw-projects-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 128, 0.3);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 128, 0.15);
+}
+.sw-projects-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 128, 0.5);
+}
+
+/* Individual project card in the list */
+.sw-project-card {
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(0, 255, 128, 0.15);
+  border-radius: 8px;
+  padding: 20px 24px;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
+}
+
+.sw-project-card:hover {
+  border-color: rgba(0, 255, 128, 0.5);
+  background: rgba(0, 255, 128, 0.04);
+  transform: translateY(-2px);
+}
+
+.sw-card-meta {
+  font-size: 14px;
+  color: #888;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.sw-card-title {
+  font-size: 26px;
+  font-weight: 400;
+  margin: 0 0 8px 0;
+  color: #fff;
+}
+
+.sw-card-desc {
+  font-size: 17px;
+  color: #aaa;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.sw-card-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sw-skill-pill {
+  background: rgba(0, 255, 128, 0.1);
+  border: 1px solid rgba(0, 255, 128, 0.25);
+  color: #00ff80;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-family: "VT323", monospace;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.sw-skill-more {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #888;
+}
+
+/* --- DETAIL VIEW --- */
+.sw-detail-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 10px 40px 20px;
+  box-sizing: border-box;
+}
+
+.sw-back-btn {
+  flex-shrink: 0;
+  align-self: flex-start;
+  color: #00ff80;
+  font-size: 18px;
+  padding: 8px 20px;
+  margin-bottom: 12px;
+  font-family: "VT323", monospace;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(0, 255, 128, 0.05);
+  border: 1px solid rgba(0, 255, 128, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-shadow: 0 0 10px rgba(0, 255, 128, 0.5);
+}
+
+.sw-back-btn:hover {
+  background: rgba(0, 255, 128, 0.15);
+  border-color: rgba(0, 255, 128, 0.6);
+  box-shadow: 0 0 15px rgba(0, 255, 128, 0.3);
+}
+
+.sw-detail-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 12px;
+}
+
+/* CRT scrollbar for detail */
+.sw-detail-scroll::-webkit-scrollbar {
+  width: 8px;
+  display: block;
+}
+.sw-detail-scroll::-webkit-scrollbar-track {
+  background: rgba(0, 255, 128, 0.05);
+  border-radius: 4px;
+}
+.sw-detail-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 128, 0.3);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 128, 0.15);
+}
+.sw-detail-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 128, 0.5);
+}
+
+.sw-detail-card {
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(0, 255, 128, 0.15);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease;
-  margin: 5rem;
 }
-  
-.project-image {
+
+.sw-detail-image {
   width: 100%;
-  height: auto;
+  max-height: 280px;
   object-fit: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  display: block;
 }
-  
-.project-content {
-  padding: 1.5rem;
+
+.sw-detail-content {
+  padding: 24px 28px;
 }
-  
-.project-title {
-  font-size: 2rem;
+
+.sw-detail-title {
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0 0 12px 0;
   color: #fff;
-  margin-bottom: 0.5rem;
 }
-  
-.project-description {
-  color: #bbb;
-  font-size: 1rem;
+
+.sw-detail-desc {
+  font-size: 19px;
+  color: #ccc;
   line-height: 1.6;
-  margin-bottom: 1rem;
+  margin: 0 0 18px 0;
 }
-  
-/* Target the back button using existing classes */
-.project-detail.mobile button.mb-8.text-sm {
-  color: white;
-  font-size: 1.3rem;
-  padding-left: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-weight: bolder;
-  background-color: transparent;
-  border-color: transparent;
-  padding: .8rem 1.6re,;
-  border-radius: 1.5rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+
+.sw-detail-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
 }
-  
-.project-detail.mobile button.mb-8.text-sm:hover {
-  background-color: transparent;
-  transform: translateY(-2px);
-  font-size: 1rem
+
+.sw-detail-links {
+  display: flex;
+  gap: 16px;
+}
+
+.sw-detail-link {
+  color: #00ff80;
+  text-decoration: none;
+  font-size: 16px;
+  font-family: "VT323", monospace;
+  letter-spacing: 1.5px;
+  padding: 6px 18px;
+  border: 1px solid rgba(0, 255, 128, 0.3);
+  border-radius: 4px;
+  transition: all 0.25s ease;
+  text-shadow: 0 0 6px rgba(0, 255, 128, 0.4);
+}
+
+.sw-detail-link:hover {
+  background: rgba(0, 255, 128, 0.12);
+  border-color: rgba(0, 255, 128, 0.6);
+  box-shadow: 0 0 12px rgba(0, 255, 128, 0.25);
 }
  
-.experience-detail.mobile button.mb-8.text-sm {
-  color: white;
-  font-size: 1.3rem;
-  padding-left: 1rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  font-weight: bolder;
-  background-color: transparent;
-  border-color: transparent;
-  padding: .8rem 1.6re,;
-  border-radius: 1.5rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-  
-.experience-detail.mobile button.mb-8.text-sm:hover {
-  background-color: transparent;
-  transform: translateY(-2px);
-  font-size: 1rem
-}
+/* (Old experience card/detail styles removed - replaced by sw-* prefixed classes) */
 
-.experience-card {
-  background-color: rgba(20, 20, 20, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-  margin-bottom: 1.5rem;
-  margin: 5rem;
-}
-
-@media (max-width: 768px) {
-  .experience-card {
-    width: 100%;
-    margin: 0rem;
-  }
-
-  .project-card {
-    width: 100%; 
-    margin: 0rem;
-  }
-} 
-
-.experience-content {
-  padding: 1.75rem;
-}
-
-.experience-title {
-  font-size: 1.75rem;
+/* --- Experience detail-specific additions --- */
+.sw-exp-company {
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #fff;
-}
-
-.experience-company-location {
-  font-size: 1.2rem;
-  font-weight: 800;
   color: #b8b8b8;
-  padding-bottom: 1rem;
+  margin-bottom: 4px;
 }
 
-.experience-date {
-  font-size: 1.2rem;
-  color: #999999;
-  padding-bottom: 1rem;
-}
-
-.experience-description {
-  color: #dddddd;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 1.25rem;
-}
-
-.experience-section-title {
-  color: #ffffff;
-  font-weight: 600;
-  font-size: 1.2rem;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-}
-
-.experience-list {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1rem;
-  padding-top: .5rem;
-}
-
-.experience-list-item {
-  color: #cccccc;
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 0rem;
-}
-
-.experience-skills-container {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  padding: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-.experience-skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.experience-skill-tag {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.experience-skill-tag:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
-}
-
-/* Skills Container */
-.skills-container {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-/* Skills Container */
-.skills-container {
-  background-color: rgba(255, 255, 255, 0.05);
-  border-radius: 8px;
-  padding: 1rem;
-  margin: 1rem 0;
-}
-
-.skills-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.skill-tag {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  font-size: 0.875rem;
-  transition: background-color 0.3s ease;
-}
-
-.skill-tag:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Project Links */
-.project-links {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.project-link {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.875rem;
-  transition: color 0.3s ease;
-}
-
-.project-link:hover {
+.sw-exp-date {
+  font-size: 18px;
   color: #888;
+  margin-bottom: 16px;
+}
+
+.sw-exp-achievements {
+  margin-bottom: 20px;
+}
+
+.sw-exp-achievements-heading {
+  font-size: 22px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+
+.sw-exp-achievements-list {
+  list-style-type: disc;
+  padding-left: 24px;
+  margin: 0;
+}
+
+.sw-exp-achievements-list li {
+  font-size: 17px;
+  color: #bbb;
+  line-height: 1.6;
+  margin-bottom: 6px;
 }
 
 
@@ -870,412 +995,46 @@ body {
   bottom: -0.01rem;
 }
 
-/* Adjust About section to work with grid lines */
-/* .about-section {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  z-index: 1;
-  overflow: auto;
-} */
+/* (about-container styles defined above in About section) */
 
-/* Updated styles for About container to work with the grid lines */
-.about-container {
-  position: relative;
-  z-index: 2;
-  padding: 2rem;
-}
+/* (Old experience-menu styles removed - now uses sw-projects-list classes) */
 
-/* Mac-specific styles */
-.mac-os .about-container {
-  padding-top: 3.7rem;
-}
+/* (about-image-container and about-content styles defined above in About section) */
 
-.windows-firefox .about-container {
-  padding-top: 3.7rem; /* Adjust as needed */
-}
-
-.experience-menu {
-  position: absolute;
-  top: 50%;
-  right: -38%;
-  transform: translateY(-50%);
-  text-align: right;
-  background-color: transparent;
-  width: 40%; 
-  max-width: 25rem;
-  max-height: 75vh; /* Limit to 65% of viewport height */
-  overflow-y: auto; /* Make it scrollable */
-  padding: 2rem 0; /* Add padding to top and bottom */
-}
-
-/* Add a custom scrollbar styling for better aesthetics */
-.experience-menu::-webkit-scrollbar {
-  width: 5px;
-  display: block; /* Override the general scrollbar hiding */
-  display: none;  /* Chrome, Safari and Opera */
-}
-
-.experience-menu::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-}
-
-.experience-menu::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-}
-
-.experience-menu::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-  
-.experience-menu :hover{
-  color: #888;
-  font-size: 2.2rem;
-  transition-timing-function: ease-in;
-  transition: 0.3s;
-  }
-  
-.experience-menu h2 {
-  font-size: 2rem;
-  font-weight: normal;
-  margin-top: .5rem;
-  transition: opacity 0.3s ease;
-}
-  
-.experience-menu .group {
-  margin-bottom: 2rem;
-}
-  
-.experience-menu .group:hover h2 {
-  opacity: 0.7;
-}
-  
-.experience-menu .group:active h2 {
-  font-size: 3rem;
-  color: #fff;
-  transition: font-size 0.3s;
-}
-  
-.experience-menu .text-sm {
-  font-size: 0.875rem;
-  color: #bbb;
-}
-  
-.experience-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(30vw, 1fr));
-  gap: 2rem;
-  width: 100%;
-  padding: 1rem;
-}
-
-
-@media (max-width: 1600px) {
-  .experience-menu h2{
-    width: 100%;
-    right: 0%;
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-
-  .experience-menu :hover{
-    color: #888;
-    font-size: 1.5rem;
-    transition-timing-function: ease-in;
-    transition: 0.3s;
-    }
-}
-
-/* Media queries for responsive grid lines */
-@media (max-width: 768px) {
-  .horizontal-line {
-    left: 20px;
-    right: 20px;
-  }
-  
-  .experience-menu {
-    width: 100%;
-    right: 0%;
-  }
-
-  .experience-menu h2{
-    width: 100%;
-    right: 0%;
-    font-size: 1.5rem;
-    font-weight: 600;
-  }
-}
-
-.about-image-container {
-  flex: 0 0 auto;
-  width: 50%;
-  max-width: 300px;
-  display: flex;
-  align-items: flex-start;
-  padding-left: 0rem;
-  padding-top: 0rem;
-}
-
-.about-image-container img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 4px;
-  margin-bottom: 0rem;
-  margin-top: 0rem;
-  margin-left: 1.5rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.about-content {
-  flex: 1;
-  overflow-y: auto;
-  padding-left: 1rem;
-}
-
-.about-content p {
-  font-size: 1.3rem;
-  margin-left: 2rem;
-}
-
-.windows-firefox .about-content {
-  padding-left: 0rem; 
-}
-
-@media (max-width: 1200px) {
-  .main-content {
-      flex-direction: column;
-      padding: 2rem 0;
-  }
-
-  .navigation {
-      width: 100%;
-      margin-top: 0;
-      margin-bottom: 2rem;
-  }
-
-  .nav-links {
-      flex-direction: row;
-      gap: 1.5rem;
-  }
-
-  .nav-link.active::before {
-      left: 50%;
-      top: -15px;
-      transform: translateX(-50%);
-  }
-
-  .center-content {
-      order: -1;
-  }
-
-  .profile-image {
-      width: 280px;
-      height: 280px;
-  }
-
-  .right-panel {
-      width: 100%;
-      margin-top: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-  }
-
-  .info-section {
-      width: 48%;
-  }
-
-  .cta-buttons {
-      width: 100%;
-      justify-content: center;
-  }
-}
+/* No responsive overrides needed for home page - it scales uniformly via the canvas */
 
 
 @media (max-width: 768px) {
-  /* Keep your existing mobile rules */
-  .mobile-nav {
-    display: flex;
-  }
-  
-  .mobile-menu {
-    display: block;
-  }
-  
-  .header {
-    display: none;
-  }
-  
-  .menu {
-    display: none;
-  }
-  
-  .content-container {
-    width: 100%;
-    max-width: 90vh;
-    padding: 0 3vw;
-    margin-top: 3rem;
-    height: calc(100vh - 6rem);
-    overflow-y: auto;
+  /* Hide old navigation elements */
+  .mobile-nav, .mobile-menu, .header, .menu {
+    display: none !important;
   }
 
-  .container {
-    width: 90vw;
-    height: 90vh;
-    position: relative;
-    margin: 0 auto;
-    padding: 5vh 5vw;
-    box-sizing: border-box;
-  }
-
-  .corner-top-left {
-    top: 0;
-    left: 0;
-    transform: translateY(2.2rem);
-  }
-  
-  .corner-top-right {
-    top: 0;
-    right: 0;
-    transform: translateY(2.2rem);
-  }
-  
-  .corner-bottom-left {
-    bottom: 0;
-    left: 0;
-    transform: translateY(1.8rem);
-  }
-  
-  .corner-bottom-right {
-    bottom: 0;
-    right: 0;
-    transform: translateY(1.8rem);
+  .corner-top-left, .corner-top-right,
+  .corner-bottom-left, .corner-bottom-right {
+    display: none;
   }
 
   .rec-indicator, .rec-dot, .timer, .location, .quality {
     display: none;
   }
 
-  /* Update about container styles for mobile */
-  .about-container {
-    flex-direction: column;
-    max-height: calc(100vh - 6rem);
-    overflow: auto;
-    padding: 0rem;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .horizontal-line{
+  .horizontal-line {
     display: none;
   }
-  
-  .about-content {
-    padding: 0;
-    overflow-y: visible;
-  }
 
-  .about-content p {
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    margin: 0rem;
-  }
-
-  .about-image-container {
-    width: 100%;
-    max-width: 300px;
-    margin: auto;
-    padding-top: 0rem;
-    padding-bottom: 1rem;
-  }
-
-  .projects-menu {
-    width: 100%;
-    right: 0%;
-    max-height: 75vh; /* Limit to 65% of viewport height */
-    overflow-y: auto; /* Make it scrollable */
-    padding: 2rem 0; /* Add padding to top and bottom */
-  }
-
-  .project-content {
-    padding: 1.5rem;
-  }
-
-  .projects-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  .bio {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .profile-image {
-    width: 220px;
-    height: 220px;
-  }
-
-  .name {
-    font-size: 2rem;
-  }
-
-  .info-section {
-    width: 100%;
-    margin-bottom: 1.5rem;
-  }
-
-  .right-panel {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cta-buttons {
-      flex-direction: column;
-      width: 100%;
-      gap: 1rem;
-  }
-
-  .btn {
-      width: 100%;
-  }
-
+  /* (Old experience-menu mobile overrides removed) */
 }
 
-/* Add new media query for smaller devices */
-@media (max-width: 480px) {
-  .about-container {
-    padding: 0.5rem;
-    margin-top: 3rem;
-  }
-
-  .content-container {
-    margin-top: 2rem;
-  }
-
-  .about-content p {
-    font-size: 1rem;
-    padding: 0.5rem;
-  }
-
-  .about-image-container {
-    width: 80%;
-  }
-}
+/* No special small-device overrides needed - canvas scales uniformly */
 
 /* Arcade Display Styles */
 .arcade-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1311,15 +1070,15 @@ body {
   pointer-events: none;
 }
 
-/* CRT Screen area */
-/* CRT Screen area */
+/* CRT Screen area - always uses 17:8 aspect ratio, scales uniformly */
 .crt-overlay {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 90%;          /* was 1700px */
-  max-width: 1600px;   /* prevents it from getting too big */
-  aspect-ratio: 17 / 8; /* replaces fixed height */
+  width: 92%;
+  max-width: 1600px;
+  aspect-ratio: 17 / 8;
+  max-height: 90%;
   transform: translate(-50%, -50%) perspective(1000px) rotateX(2deg);
   border-radius: 10px;
   color: #00ff80;
@@ -1331,21 +1090,25 @@ body {
   z-index: 0;
   transition: transform 0.3s ease;
   animation: flicker 0.05s infinite;
-  overflow: hidden; /* keeps everything tidy */
+  overflow: hidden;
 }
 
-/* Optional fine-tuning for small screens */
-@media (max-width: 768px) {
-  .crt-overlay {
-    width: 95%;
-    aspect-ratio: 4 / 3; /* closer to classic CRT shape */
+/* Safe area for notched phones */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .dock {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 10px) !important;
   }
 }
 
-@media (max-width: 480px) {
+/* Accessibility - reduce motion */
+@media (prefers-reduced-motion: reduce) {
   .crt-overlay {
-    width: 100%;
-    aspect-ratio: 1.2 / 1; /* fills vertically better on mobile */
+    animation: none !important;
+  }
+  
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
 

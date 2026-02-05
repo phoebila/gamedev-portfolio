@@ -1,64 +1,96 @@
 import React from 'react';
+import LogoLoop from './LogoLoop';
 
 const Home = () => (
-  <div className="main-content">
-    <div className="center-content">
-      <div className="profile-image animate delay-1">
+  <div className="home-page">
+    {/* Top section: profile + bio */}
+    <div className="home-hero">
+      <div className="home-profile-image animate delay-1">
         <img src={`${process.env.PUBLIC_URL}/image.jpg`} alt="portrait" />
       </div>
-      <div className="bio">
-        <h1 className="name animate delay-2">Phoebe Royer</h1>
-        <p className="title animate delay-2">Developer &amp; Game Designer</p>
-        <div className="social-links animate delay-3">
-          <a href="mailto:proyer@ucsc.edu" className="social-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-          </a>
-          <a href="https://www.instagram.com/phoeberoyerr/" className="social-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-            </svg>
-          </a>
-          <a href="https://github.com/phoebila" className="social-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-            </svg>
-          </a>
-          <a href="https://www.linkedin.com/in/phoebe-royer/" className="social-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-              <rect x="2" y="9" width="4" height="12"></rect>
-              <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-          </a>
-        </div>
+      <h1 className="home-name animate delay-2">Phoebe Royer</h1>
+      <p className="home-title animate delay-2">Developer &amp; Game Designer</p>
+      <div className="home-socials animate delay-3">
+        <LogoLoop
+          logos={[
+            {
+              node: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>
+                </svg>
+              ),
+              href: 'mailto:proyer@ucsc.edu',
+              title: 'Email',
+            },
+            {
+              node: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              ),
+              href: 'https://www.instagram.com/phoeberoyerr/',
+              title: 'Instagram',
+            },
+            {
+              node: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+              ),
+              href: 'https://github.com/phoebila',
+              title: 'GitHub',
+            },
+            {
+              node: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+              ),
+              href: 'https://www.linkedin.com/in/phoebe-royer/',
+              title: 'LinkedIn',
+            },
+            {
+              node: (
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M2 9.5C2 7.01 4.01 5 6.5 5h11C19.99 5 22 7.01 22 9.5c0 1.76-1.01 3.29-2.48 4.02L18 19h-2l-1-4h-6l-1 4H6l-1.52-5.48C3.01 12.79 2 11.26 2 9.5zM7 8v2H6v1h1v2h2v-2h1v-1H9V8H7zm7.5 1a1 1 0 100 2 1 1 0 000-2zm3 0a1 1 0 100 2 1 1 0 000-2z"/>
+                </svg>
+              ),
+              href: 'https://proyer.itch.io/',
+              title: 'Itch.io',
+            },
+          ]}
+          speed={35}
+          logoHeight={28}
+          gap={60}
+          pauseOnHover={true}
+          scaleOnHover={true}
+        />
       </div>
     </div>
-    
-    <div className="right-panel">
-      <div className="info-section animate delay-3">
-        <div className="info-label">EDUCATION</div>
-        <div className="info-value">B.S. in Computer Science: Game Design</div>
-        <div className="info-detail">UC Santa Cruz • 2020-2025</div>
+
+    {/* Bottom section: info cards in a row */}
+    <div className="home-info-row">
+      <div className="home-info-card animate delay-3">
+        <div className="home-info-label">EDUCATION</div>
+        <div className="home-info-value">B.S. in Computer Science: Game Design</div>
+        <div className="home-info-detail">UC Santa Cruz &bull; 2020-2025</div>
       </div>
 
-      <div className="info-section animate delay-3">
-        <div className="info-label">LOCATION</div>
-        <div className="info-value">Sunnyvale, California</div>
+      <div className="home-info-card animate delay-3">
+        <div className="home-info-label">LOCATION</div>
+        <div className="home-info-value">Sunnyvale, California</div>
       </div>
 
-      <div className="info-section animate delay-3">
-        <div className="info-label">SEEKING</div>
-        <div className="info-value">Gameplay Programmer/Developer, Designer, 3D Artist </div>
-        <div className="info-detail">Game Developer/Programmer roles</div>
+      <div className="home-info-card animate delay-3">
+        <div className="home-info-label">SEEKING</div>
+        <div className="home-info-value">Gameplay Programmer / Developer</div>
+        <div className="home-info-detail">Designer &bull; 3D Artist</div>
       </div>
 
-      <div className="cta-buttons animate delay-4">
-        <a href="https://drive.google.com/file/d/1EzPXmSsCzONu-4eKxP_hxkJu49zxe3V0/view?usp=sharing" className="btn btn-outline">Resume</a>
+      <div className="home-info-card animate delay-4">
+        <a href="https://docs.google.com/document/d/1wyBcwQG3RLfHdP5QHGha7YPgK_n1Kf-U/edit?usp=sharing&ouid=114965531656279797689&rtpof=true&sd=true" className="home-resume-btn">
+          Resume
+        </a>
       </div>
     </div>
   </div>
