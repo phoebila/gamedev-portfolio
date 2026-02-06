@@ -5,6 +5,8 @@ const ProjectCard = ({
   description,
   skills = [],
   imageUrl,
+  videoUrl,
+  embedUrl,
   projectUrl,
   githubUrl,
   itchoUrl,
@@ -20,9 +22,28 @@ const ProjectCard = ({
 
       <div className="sw-detail-scroll">
         <div className="sw-detail-card">
-          {imageUrl && (
+          {embedUrl ? (
+            <div className="sw-detail-embed">
+              <iframe
+                src={embedUrl}
+                title={title}
+                className="sw-detail-iframe"
+                allow="accelerometer; autoplay"
+                scrolling="no"
+              />
+            </div>
+          ) : videoUrl ? (
+            <video
+              src={videoUrl}
+              className="sw-detail-video"
+              controls
+              muted
+              playsInline
+              preload="metadata"
+            />
+          ) : imageUrl ? (
             <img src={imageUrl} alt={title} className="sw-detail-image" />
-          )}
+          ) : null}
 
           <div className="sw-detail-content">
             <h3 className="sw-detail-title">{title}</h3>

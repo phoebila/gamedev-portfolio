@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    * { margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #1ee33b; }
+    canvas { display: block; width: 100% !important; height: 100% !important; }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+</head>
+<body>
+<script>
+p5.disableFriendlyErrors = true;
+
+let kittyModel;
+let asciiArtCanvas;
+let asciiChars = ["@", "#", "$", "%", "&", "*", "+", "-", ":", ".", " "];
+let tileSize = 10;
+
+function preload() {
+  kittyModel = loadModel('https://phoebila.github.io/169-Page/experiment5/js/model/kitty!.obj', true);
+}
+
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  kittyModel.computeNormals();
+  asciiArtCanvas = createGraphics(512, 512);
+  asciiArtCanvas.textSize(tileSize);
+  asciiArtCanvas.textAlign(CENTER, CENTER);
+  asciiArtCanvas.fill(0);
+  generateASCIIPattern();
+}
+
+function generateASCIIPattern() {
+  let cols = asciiArtCanvas.width / tileSize;
+  let rows = asciiArtCanvas.height / tileSize;
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      let charIndex = floor(random(asciiChars.length));
+      let x = j * tileSize + tileSize / 2;
+      let y = i * tileSize + tileSize / 2;
+      asciiArtCanvas.text(asciiChars[charIndex], x, y);
+    }
+  }
+}
+
+function draw() {
+  background('#1ee33b');
+  orbitControl();
+  ambientLight(255);
+  directionalLight(255, 255, 255, 0, 0, -1);
+  push();
+  scale(1, -1, 1);
+  translate(0, 0, 250);
+  stroke(255);
+  strokeWeight(0.01);
+  fill(255, 255, 255, 30);
+  texture(asciiArtCanvas);
+  model(kittyModel);
+  pop();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+</body>
+</html>
