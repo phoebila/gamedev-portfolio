@@ -8,7 +8,7 @@ export const projectDetails = {
      description: "An augmented reality recreation of Fruit Ninja built for the Meta Quest using hand tracking. Players slice through virtual fruit with their bare hands in real-time, leveraging the headset's hand-tracking capabilities for an immersive, controller-free gameplay experience. Developed as part of CSE 168 (Augmented & Virtual Reality) at UC Santa Cruz, the project implements gesture recognition, physics-based fruit slicing mechanics, and score tracking within a passthrough AR environment.",
      skills: ["Unity", "C#", "AR Development", "Hand Tracking", "Meta Quest", "Gesture Recognition", "Physics Simulation"],
      videoUrl: process.env.PUBLIC_URL + "/c21e5a42f6d11478a2d49c12d8e2bf7b.MP4",
-     githubUrl: "https://git.ucsc.edu/jleenert/cse-168-vr"
+     githubUrl: "https://github.com/phoebila/CSE168-projects/tree/ar-fruit-ninja"
    },
   arPresentationHelper: {
      id: "arPresentationHelper",
@@ -19,7 +19,18 @@ export const projectDetails = {
      description: "A final project for CSE 168 (Augmented & Virtual Reality) that transforms traditional presentations by allowing users to extract and interact with 3D models directly from their slides in augmented reality. Presenters can grab 3D assets from a presentation and display them as life-sized AR overlays, enabling audiences to examine models from any angle in real-time. Built with Unity and C# for the Meta Quest platform, the project bridges the gap between flat slide decks and spatial computing.",
      skills: ["Unity", "C#", "AR Development", "Meta Quest", "3D Interaction", "UI/UX Design", "Spatial Computing"],
      videoUrl: process.env.PUBLIC_URL + "/4b9c532879b2426db9461d799e00431e.MP4",
-     githubUrl: "https://git.ucsc.edu/jleenert/cse-168-final-project"
+     githubUrl: "https://github.com/phoebila/CSE168-projects/tree/ar-final-project"
+   },
+  vrJenga: {
+     id: "vrJenga",
+     title: "VR Jenga",
+     date: "2024",
+     category: "AR/VR Classwork",
+     type: "VR",
+     description: "A virtual reality Jenga game built with Three.js and WebXR. Players interact with a physics-based Jenga tower using VR controllers, pulling and placing colorful blocks in an immersive 3D environment. The game features realistic physics simulation powered by the Rapier physics engine, with dynamic block stacking, ball projectiles for knocking over the tower, and orbit controls for non-VR desktop viewing. Developed as part of CSE 168 (Augmented & Virtual Reality) at UC Santa Cruz.",
+     skills: ["Three.js", "WebXR", "JavaScript", "Rapier Physics", "VR Development", "3D Rendering", "Physics Simulation"],
+     imageUrl: process.env.PUBLIC_URL + "/IMG_1085.jpeg",
+     githubUrl: "https://github.com/phoebila/CSE168-projects/tree/vr-jenga"
    },
   creativeCoding: {
      id: "creativeCoding",

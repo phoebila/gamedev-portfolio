@@ -854,9 +854,11 @@ body {
 
 .sw-detail-image {
   width: 100%;
-  max-height: 280px;
-  object-fit: cover;
+  height: 280px;
+  object-fit: contain;
   display: block;
+  background: #0a0a0a;
+  border-bottom: 1px solid rgba(0, 255, 128, 0.15);
 }
 
 .sw-detail-video {
