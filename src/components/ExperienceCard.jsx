@@ -11,26 +11,26 @@ const ExperienceCard = ({
   onBack,
 }) => {
   return (
-    <div className="sw-detail-wrapper">
+    <div className="detail-wrapper">
       {onBack && (
-        <button className="sw-back-btn" onClick={onBack}>
+        <button className="back-btn" onClick={onBack}>
           ← BACK TO EXPERIENCE
         </button>
       )}
 
-      <div className="sw-detail-scroll">
-        <div className="sw-detail-card">
-          <div className="sw-detail-content">
-            <h3 className="sw-detail-title">{title}</h3>
-            <div className="sw-exp-company">{company} &bull; {location}</div>
-            <div className="sw-exp-date">{date}</div>
+      <div className="detail-scroll">
+        <div className="detail-card">
+          <div className="detail-content">
+            <h3 className="detail-title">{title}</h3>
+            <div className="exp-company">{company} &bull; {location}</div>
+            <div className="exp-date">{date}</div>
 
-            <p className="sw-detail-desc">{description}</p>
+            <p className="detail-desc">{description}</p>
 
             {achievements && achievements.length > 0 && (
-              <div className="sw-exp-achievements">
-                <h4 className="sw-exp-achievements-heading">Key Achievements</h4>
-                <ul className="sw-exp-achievements-list">
+              <div className="exp-achievements">
+                <h4 className="exp-achievements-heading">Key Achievements</h4>
+                <ul className="exp-achievements-list">
                   {achievements.map((item, index) => (
                     <li key={index}>{item}</li>
                   ))}
@@ -38,9 +38,9 @@ const ExperienceCard = ({
               </div>
             )}
 
-            <div className="sw-detail-skills">
+            <div className="detail-skills">
               {skills.map((skill, index) => (
-                <span key={index} className="sw-skill-pill">
+                <span key={index} className="skill-pill">
                   {skill}
                 </span>
               ))}

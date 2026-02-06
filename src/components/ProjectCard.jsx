@@ -13,21 +13,21 @@ const ProjectCard = ({
   onBack,
 }) => {
   return (
-    <div className="sw-detail-wrapper">
+    <div className="detail-wrapper">
       {onBack && (
-        <button className="sw-back-btn" onClick={onBack}>
+        <button className="back-btn" onClick={onBack}>
           ← BACK TO PROJECTS
         </button>
       )}
 
-      <div className="sw-detail-scroll">
-        <div className="sw-detail-card">
+      <div className="detail-scroll">
+        <div className="detail-card">
           {embedUrl ? (
-            <div className="sw-detail-embed">
+            <div className="detail-embed">
               <iframe
                 src={embedUrl}
                 title={title}
-                className="sw-detail-iframe"
+                className="detail-iframe"
                 allow="accelerometer; autoplay"
                 scrolling="no"
               />
@@ -35,56 +35,41 @@ const ProjectCard = ({
           ) : videoUrl ? (
             <video
               src={videoUrl}
-              className="sw-detail-video"
+              className="detail-video"
               controls
               muted
               playsInline
               preload="metadata"
             />
           ) : imageUrl ? (
-            <img src={imageUrl} alt={title} className="sw-detail-image" />
+            <img src={imageUrl} alt={title} className="detail-image" />
           ) : null}
 
-          <div className="sw-detail-content">
-            <h3 className="sw-detail-title">{title}</h3>
-            <p className="sw-detail-desc">{description}</p>
+          <div className="detail-content">
+            <h3 className="detail-title">{title}</h3>
+            <p className="detail-desc">{description}</p>
 
-            <div className="sw-detail-skills">
+            <div className="detail-skills">
               {skills.map((skill, index) => (
-                <span key={index} className="sw-skill-pill">
+                <span key={index} className="skill-pill">
                   {skill}
                 </span>
               ))}
             </div>
 
-            <div className="sw-detail-links">
+            <div className="detail-links">
               {projectUrl && (
-                <a
-                  href={projectUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sw-detail-link"
-                >
+                <a href={projectUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
                   VIEW PROJECT
                 </a>
               )}
               {githubUrl && (
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sw-detail-link"
-                >
+                <a href={githubUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
                   GITHUB
                 </a>
               )}
               {itchoUrl && (
-                <a
-                  href={itchoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="sw-detail-link"
-                >
+                <a href={itchoUrl} target="_blank" rel="noopener noreferrer" className="detail-link">
                   ITCH.IO
                 </a>
               )}

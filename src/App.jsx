@@ -1,185 +1,143 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import HorseBackground from './components/HorseBackground';
+import Hero from './components/Hero';
+import DockNav from './components/DockNav';
 import About from './components/About';
-import Dock from './components/Dock';
-import Viewfinder from './components/Viewfinder';
+import ProjectMenu from './components/ProjectMenu';
+import ProjectCard from './components/ProjectCard';
 import ExperienceMenu from './components/ExperienceMenu';
 import ExperienceCard from './components/ExperienceCard';
-import ProjectCard from './components/ProjectCard';
-import ProjectMenu from './components/ProjectMenu';
+import Footer from './components/Footer';
 import { projectDetails } from './components/ProjectsData';
 import { experienceData } from './components/ExperienceData';
-import ArcadeDisplay from './components/ArcadeDisplay';
-import Home from './components/Home';
 
-// Navigation items for the dock
-const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'about', label: 'About' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'experience', label: 'Experience' },
-];
+// Icons for dock nav
+const HomeIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+const UserIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
+  </svg>
+);
+const CodeIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" />
+  </svg>
+);
+const BriefcaseIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+  </svg>
+);
+const MailIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
+  </svg>
+);
 
-// Page transition variants
-const pageVariants = {
-  initial: { 
-    opacity: 0, 
-    y: 8,
-    filter: 'blur(4px)'
-  },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    filter: 'blur(0px)',
-    transition: { 
-      duration: 0.4, 
-      ease: [0.4, 0, 0.2, 1]
-    }
-  },
-  exit: { 
-    opacity: 0, 
-    y: -8,
-    filter: 'blur(4px)',
-    transition: { 
-      duration: 0.3,
-      ease: [0.4, 0, 1, 1]
-    }
-  }
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
 };
 
-// Wrapper component to handle navigation logic
-const AppContent = () => {
+const App = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedExperience, setSelectedExperience] = useState(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    const isWindows = navigator.platform.toUpperCase().indexOf('WIN') >= 0;
-    const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-    if (isFirefox) {
-      document.body.classList.add('firefox');
-    }
-    if (isWindows && isFirefox) {
-      document.body.classList.add('windows-firefox');
-    }
-
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-    if (isMac) {
-      document.body.classList.add('mac-os');
-    }
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobile, location.pathname, navigate]);
-
-  // Simplified navigation - no more setTimeout!
-  const handleNavigation = (path) => {
-    const navigatePath = path === 'home' ? '' : path;
-    
-    if (navigatePath !== location.pathname.slice(1)) {
-      setSelectedProject(null);
-      setSelectedExperience(null);
-      navigate(`/${navigatePath}`);
-    }
-  };
+  const dockItems = [
+    { icon: <HomeIcon />, label: 'Home', onClick: () => scrollTo('home') },
+    { icon: <UserIcon />, label: 'About', onClick: () => scrollTo('about') },
+    { icon: <CodeIcon />, label: 'Projects', onClick: () => scrollTo('projects') },
+    { icon: <BriefcaseIcon />, label: 'Experience', onClick: () => scrollTo('experience') },
+    { icon: <MailIcon />, label: 'Contact', onClick: () => scrollTo('contact') },
+  ];
 
   const handleProjectClick = (projectId) => {
     setSelectedProject(projectDetails[projectId]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToProjects = () => {
     setSelectedProject(null);
+    setTimeout(() => scrollTo('projects'), 100);
   };
 
   const handleExperienceClick = (experienceId) => {
     setSelectedExperience(experienceData[experienceId]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleBackToExperiences = () => {
     setSelectedExperience(null);
+    setTimeout(() => scrollTo('experience'), 100);
   };
 
-  const currentPath = location.pathname.slice(1) || 'home';
-
-  return (
-    <div className="container">
-      <ArcadeDisplay>
-        <Viewfinder />
-        
-        {/* Unified Dock for both mobile and desktop */}
-        <Dock 
-          items={navItems}
-          activeItem={currentPath}
-          onNavigate={handleNavigation}
-          isMobile={isMobile}
-        />
-        
-        {/* Animated page transitions */}
-        <AnimatePresence mode="wait">
+  // Detail overlay mode
+  if (selectedProject) {
+    return (
+      <div className="app-root">
+        <HorseBackground />
+        <DockNav items={dockItems} magnification={60} baseItemSize={40} panelHeight={56} />
+        <div className="detail-overlay">
           <motion.div
-            key={location.pathname}
-            className="content-container"
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="detail-container"
           >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/home" element={<Navigate to="/" replace />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/projects" element={
-                selectedProject ? (
-                  <motion.div
-                    key="project-detail"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    <ProjectCard {...selectedProject} onBack={handleBackToProjects} />
-                  </motion.div>
-                ) : (
-                  <ProjectMenu onProjectClick={handleProjectClick} />
-                )
-              } />
-              <Route path="/experience" element={
-                selectedExperience ? (
-                  <motion.div
-                    key="experience-detail"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                    style={{ width: '100%', height: '100%' }}
-                  >
-                    <ExperienceCard {...selectedExperience} onBack={handleBackToExperiences} />
-                  </motion.div>
-                ) : (
-                  <ExperienceMenu onExperienceClick={handleExperienceClick} />
-                )
-              } />
-              {/* Catch-all: redirect any unknown route to Home */}
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
+            <ProjectCard {...selectedProject} onBack={handleBackToProjects} />
           </motion.div>
-        </AnimatePresence>
-      </ArcadeDisplay>
-    </div>
-  );
-};
+        </div>
+      </div>
+    );
+  }
 
-const App = () => {
+  if (selectedExperience) {
+    return (
+      <div className="app-root">
+        <HorseBackground />
+        <DockNav items={dockItems} magnification={60} baseItemSize={40} panelHeight={56} />
+        <div className="detail-overlay">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="detail-container"
+          >
+            <ExperienceCard {...selectedExperience} onBack={handleBackToExperiences} />
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <BrowserRouter basename="/gamedev-portfolio">
-      <AppContent />  
-    </BrowserRouter>
+    <div className="app-root">
+      <HorseBackground />
+      <DockNav items={dockItems} magnification={60} baseItemSize={40} panelHeight={56} />
+
+      <main className="main-scroll">
+        <Hero />
+
+        <section id="about" className="section">
+          <About />
+        </section>
+
+        <section id="projects" className="section">
+          <ProjectMenu onProjectClick={handleProjectClick} />
+        </section>
+
+        <section id="experience" className="section">
+          <ExperienceMenu onExperienceClick={handleExperienceClick} />
+        </section>
+
+        <Footer />
+      </main>
+    </div>
   );
 };
 

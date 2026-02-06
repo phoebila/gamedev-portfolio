@@ -1,4 +1,19 @@
   export const experienceData = {
+    "paystand_ml": {
+      id: "paystand_ml",
+      title: "AI/ML Engineering Intern",
+      company: "Paystand",
+      location: "Santa Cruz, CA",
+      date: "Oct 2025 - Present",
+      type: "Software Engineering & ML",
+      description: "Collaborating on the Ashwood code-base at Paystand, integrating data-pipeline modules using Python and Spark, building exploratory ML models on enriched payment and user-behavior datasets, and deploying model-inference endpoints using Docker and REST APIs.",
+      skills: ["Python", "Spark", "Machine Learning", "Docker", "REST APIs", "CursorAI"],
+      achievements: [
+        "Collaborated on the Ashwood code-base, integrating data-pipeline modules using Python and Spark, resulting in streamlined ingestion of transactional data for downstream ML tasks.",
+        "Built and trained exploratory machine-learning models (classification/regression) on enriched payment-and-user-behavior datasets, resulting in initial predictive prototypes for user churn and fraud detection.",
+        "Developed unit and integration tests, and deployed model-inference endpoints using Docker and REST APIs, resulting in production-ready components ready for handoff to senior engineers."
+      ]
+    },
     "it_specialist": {
       id: "it_specialist",
       title: "IT Specialist",
