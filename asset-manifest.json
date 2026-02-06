@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/gamedev-portfolio/static/css/main.030a1a18.css",
-    "main.js": "/gamedev-portfolio/static/js/main.9612b0ba.js",
+    "main.js": "/gamedev-portfolio/static/js/main.0d343562.js",
     "index.html": "/gamedev-portfolio/index.html",
     "main.030a1a18.css.map": "/gamedev-portfolio/static/css/main.030a1a18.css.map",
-    "main.9612b0ba.js.map": "/gamedev-portfolio/static/js/main.9612b0ba.js.map"
+    "main.0d343562.js.map": "/gamedev-portfolio/static/js/main.0d343562.js.map"
   },
   "entrypoints": [
     "static/css/main.030a1a18.css",
-    "static/js/main.9612b0ba.js"
+    "static/js/main.0d343562.js"
   ]
 }
