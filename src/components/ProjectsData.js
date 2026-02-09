@@ -57,6 +57,17 @@ export const projectDetails = {
    githubUrl: "https://github.com/phoebila/CMPM120-TheTurning",
    itchoUrl: "https://proyer.itch.io/the-turning"
  },
+  fabricateAndFlourish: {
+     id: "fabricateAndFlourish",
+     title: "Fabricate and Flourish",
+     date: "2024",
+     category: "Classwork",
+     type: "Simulation",
+     description: "A 3D simulation game built in Unity for CMPM 125 (Game Technologies) in collaboration with Jackson McLane. Players build and manage a growing world, crafting and placing structures while the environment comes to life around them. The project features 3D environments, animal AI, tiled terrain, and ambient audio design.",
+     skills: ["Unity", "C#", "3D Development", "Game Design", "Simulation", "Audio Integration"],
+     imageUrl: process.env.PUBLIC_URL + "/fabricate-and-flourish.png",
+     itchoUrl: "https://proyer.itch.io/fabricate-and-flourish"
+   },
   castIntoFlame: {
      id: "castIntoFlame",
      title: "Cast Into Flame",

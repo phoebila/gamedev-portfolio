@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import { clone as skeletonClone } from 'three/examples/jsm/utils/SkeletonUtils';
 
 const ASCII_CHARS = ' .:-=+*#%@';
@@ -55,7 +56,10 @@ const HorseBackground = () => {
     // Each horse gets: { pivot, mixer }
     const horses = [];
     const clock = new THREE.Clock();
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.7/');
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
 
     // Lane / scroll constants
     const VISIBLE_HALF = 4.2;
